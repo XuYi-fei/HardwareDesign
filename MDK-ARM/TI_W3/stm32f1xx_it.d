@@ -33,3 +33,7 @@ ti_w3\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 ti_w3\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h
 ti_w3\stm32f1xx_it.o: ../Core/Inc/bsp_exti.h
 ti_w3\stm32f1xx_it.o: ../Core/Inc/bsp_SysTick.h
+ti_w3\stm32f1xx_it.o: ../Core/Inc/bsp_led.h
+ti_w3\stm32f1xx_it.o: ../Core/Inc/bsp_ili9341_lcd.h
+ti_w3\stm32f1xx_it.o: ../Core/Inc/fonts.h
+ti_w3\stm32f1xx_it.o: ../Core/Inc/fonts.h

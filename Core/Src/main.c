@@ -38,19 +38,21 @@ void SystemClock_Config(void);
 volatile uint32_t time = 0; // ms 
 volatile uint8_t cnt = 0;
 extern TIM_HandleTypeDef htimx;
-extern uint8_t mode;
+
 int main(void)
 {
   HAL_Init();
   SystemClock_Config();
-	//EXTI_Key_Config();
+
 	//SysTick_Init();
 	BASIC_TIMx_Init();
-  //MX_GPIO_Init();
+  MX_GPIO_Init();
   //MX_TIM4_Init();
   //MX_FSMC_Init();
-	//LED_GPIO_Config();	 
+	//LED_GPIO_Config();	
+	EXTI_Key_Config();	
 	ILI9341_Init();
+	
 	// xyf: set the display mode
   ILI9341_GramScan ( 4 );
 	LCD_SetFont(&Font24x32);
@@ -58,15 +60,24 @@ int main(void)
 	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);	
 	
 	LCD_SetColors(BLACK,WHITE);
- 
+	ILI9341_SetPointPixel(1,1);
+	ILI9341_SetPointPixel(1,2);
+	ILI9341_SetPointPixel(1,3);
+	ILI9341_SetPointPixel(1,4);
+	ILI9341_SetPointPixel(1,5);
+	//EXTI_Key_Config();
+	//HAL_TIM_PeriodElapsedCallback(&htimx);
+//HAL_TIM_Base_Start_IT(&htimx);
   while (1)
   {
 		if(time % 100000 == 0){
 			//ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);	
 			Chinese_Show();
-		}
 		
-		HAL_TIM_PeriodElapsedCallback(&htimx);
+		}
+		time++;
+		//HAL_TIM_Base_Start_IT(&htimx);
+		//HAL_TIM_PeriodElapsedCallback(&htimx);
 
   }
 }

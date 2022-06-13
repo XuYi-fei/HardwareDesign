@@ -1630,7 +1630,7 @@ void LCD_ClearLine(uint16_t Line)
 /*********************end of file*************************/
 
 volatile uint16_t current_col = 0;
-volatile uint8_t mode = 2;
+volatile uint8_t mode = 1;
 volatile uint8_t col_num = 0;
 void Chinese_Show(){
 

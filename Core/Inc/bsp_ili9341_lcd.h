@@ -132,7 +132,7 @@ void Chinese_Show(void);
 #define digitalL(p,i)			{p->BSRR=(uint32_t)i << 16;}				//Êä³öµÍµçÆ½
 
 
-
+extern volatile uint8_t mode;
 
 
 

@@ -25,6 +25,8 @@
 #include "bsp_SysTick.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "bsp_led.h"
+#include "bsp_ili9341_lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -202,20 +204,53 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /* USER CODE BEGIN 1 */
-extern uint8_t mode;
-void KEY1_IRQHandler(void)
+//extern uint8_t mode;
+//void KEY2_IRQHandler(void)
+//{
+//	//for(int i = 0; i < 10000; i++);
+//	if(__HAL_GPIO_EXTI_GET_IT(KEY2_INT_GPIO_PIN) != RESET) 
+//	{
+//		//Delay_us(10000);
+//		//if(Key_Scan(KEY1_INT_GPIO_PORT,KEY1_INT_GPIO_PIN) == KEY_ON){
+//		//		mode = (mode + 1) % 3;
+//		//}
+//		mode = (mode + 1) % 3;
+//		//LED1(ON);
+//		__HAL_GPIO_EXTI_CLEAR_IT(KEY2_INT_GPIO_PIN); 
+//		//for(int i = 0; i < 10000; i++);
+//	}  
+//}
+
+void EXTI0_IRQHandler(void)
 {
-	//for(int i = 0; i < 10000; i++);
-	if(__HAL_GPIO_EXTI_GET_IT(KEY1_INT_GPIO_PIN) != RESET) 
-	{
-		//Delay_us(10000);
-		//if(Key_Scan(KEY1_INT_GPIO_PORT,KEY1_INT_GPIO_PIN) == KEY_ON){
-		//		mode = (mode + 1) % 3;
-		//}
-		mode = (mode + 1) % 3;
-		__HAL_GPIO_EXTI_CLEAR_IT(KEY1_INT_GPIO_PIN); 
-		//for(int i = 0; i < 10000; i++);
-	}  
+  /* USER CODE BEGIN EXTI0_IRQn 0 */
+
+  /* USER CODE END EXTI0_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+  /* USER CODE BEGIN EXTI0_IRQn 1 */
+
+  /* USER CODE END EXTI0_IRQn 1 */
 }
+
+/**
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
+}
+
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+//	if(GPIO_Pin == GPIO_PIN_13){
+//		mode = (mode + 1) % 3;
+//	}
+
+//}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
