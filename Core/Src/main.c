@@ -43,9 +43,10 @@ int main(void)
 {
   HAL_Init();
   SystemClock_Config();
+	//EXTI_Key_Config();
 	//SysTick_Init();
 	BASIC_TIMx_Init();
-  MX_GPIO_Init();
+  //MX_GPIO_Init();
   //MX_TIM4_Init();
   //MX_FSMC_Init();
 	//LED_GPIO_Config();	 
@@ -57,10 +58,10 @@ int main(void)
 	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);	
 	
 	LCD_SetColors(BLACK,WHITE);
-	//EXTI_Key_Config(); 
+ 
   while (1)
   {
-		if(time % 10000 == 0){
+		if(time % 100000 == 0){
 			//ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);	
 			Chinese_Show();
 		}

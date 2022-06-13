@@ -1695,8 +1695,10 @@ void Chinese_Show(){
 			volatile uint8_t num_char = 0, char_col = 0;
 			volatile uint16_t last = current_col;
 			volatile unsigned char temp;
+			volatile uint16_t point_row = 0;
 			//volatile uint8_t t1 = 0;
 			for(int i = 0; i < 240; i++){
+				point_row = 0;
 				if(i > chinese_struct.size)
 					break;
 				num_char = current_col / 16;
@@ -1710,37 +1712,47 @@ void Chinese_Show(){
 				temp <<= col_num;
 				
 				for(int t1=col_num; t1 < 8; t1++){
-					if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+t1);
+					if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+point_row);
+					point_row ++;
 					temp <<= 1;
 				}
 				temp = chinese_struct.chinese_one[num_char][char_col*2+1];
-				//else col_num = 8;
-				for(int t1 = col_num >8 ? col_num : 8; t1 < 16; t1++){
-					if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+t1);
+				
+				if(col_num > 7)
+					temp <<= (col_num - 8);
+				
+				for(int t1 = col_num ; t1 < 16; t1++){
+					if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+point_row);
+					point_row ++;
 					temp <<= 1;
 				}
 				
-  			// 	uint16_t tmp_col = current_col + 15;
-				// if(tmp_col > chinese_struct.size)
-				// 	continue;
-				// num_char = tmp_col / 16;
-				// char_col = tmp_col % 16;
-				// temp = chinese_struct.chinese_one[num_char][char_col*2];
-				// for(t1 = 0; t1 < 8 && t1 < col_num; t1 ++){
-				// 	if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+t1);
-				// 	temp <<= 1;
-				// }
+  			volatile uint16_t tmp_col = (current_col + 240) % chinese_struct.size;
+				//tmp_col = tmp_col % (chinese_struct.size);
+//				if(tmp_col > chinese_struct.size){
+//					current_col = (current_col + 1) % (chinese_struct.size);
+//					continue;
+//				}
+				num_char = tmp_col / 16;
+				char_col = tmp_col % 16;
+				temp = chinese_struct.chinese_one[num_char][char_col*2];
+				for(int t1 = 0; t1 < 8 && point_row < 16; t1 ++){
+				 	if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+point_row);
+					point_row ++;
+				 	temp <<= 1;
+				}
 				
-				// temp = chinese_struct.chinese_one[num_char][char_col*2+1];
-				// for(; t1 < 16 && t1 < col_num; t1 ++){
-				// 	if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+t1);
-				// 	temp <<= 1;
-				// }
+				temp = chinese_struct.chinese_one[num_char][char_col*2+1];
+				for(int t1 = 0; t1 < 8 && point_row < 16; t1 ++){
+					if(temp & 0x80) ILI9341_SetPointPixel(i,LCD_Y_LENGTH/2+point_row);
+					point_row ++;
+					temp <<= 1;
+				}
 				
 				current_col = (current_col + 1) % (chinese_struct.size);
 
 			}
-			if(col_num == 16){
+			if(col_num == 15){
 				col_num = 0;
 				current_col = (last + LCD_X_LENGTH) % (chinese_struct.size);
 			} else{
