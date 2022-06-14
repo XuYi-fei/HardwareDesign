@@ -1630,7 +1630,7 @@ void LCD_ClearLine(uint16_t Line)
 /*********************end of file*************************/
 
 volatile uint16_t current_col = 0;
-volatile uint8_t mode = 1;
+volatile uint8_t mode = 0;
 volatile uint8_t col_num = 0;
 void Chinese_Show(){
 
@@ -1728,11 +1728,6 @@ void Chinese_Show(){
 				}
 				
   			volatile uint16_t tmp_col = (current_col + 240) % chinese_struct.size;
-				//tmp_col = tmp_col % (chinese_struct.size);
-//				if(tmp_col > chinese_struct.size){
-//					current_col = (current_col + 1) % (chinese_struct.size);
-//					continue;
-//				}
 				num_char = tmp_col / 16;
 				char_col = tmp_col % 16;
 				temp = chinese_struct.chinese_one[num_char][char_col*2];
@@ -1754,6 +1749,11 @@ void Chinese_Show(){
 			}
 			if(col_num == 15){
 				col_num = 0;
+//				current_col = last + LCD_X_LENGTH;
+//				if(current_col > chinese_struct.size){
+//					mode = 0;
+//					current_col = 0;
+//				}
 				current_col = (last + LCD_X_LENGTH) % (chinese_struct.size);
 			} else{
 				col_num ++;

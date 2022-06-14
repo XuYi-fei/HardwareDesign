@@ -14,6 +14,7 @@
 "ti_w3\bsp_systick.o"
 "ti_w3\bsp_basic_tim.o"
 "ti_w3\bsp_exti.o"
+"ti_w3\bsp_key.o"
 "ti_w3\stm32f1xx_hal_gpio_ex.o"
 "ti_w3\stm32f1xx_ll_fsmc.o"
 "ti_w3\stm32f1xx_hal.o"

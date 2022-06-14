@@ -46,7 +46,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+volatile uint16_t i =0 ;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -214,9 +214,10 @@ void SysTick_Handler(void)
 //		//if(Key_Scan(KEY1_INT_GPIO_PORT,KEY1_INT_GPIO_PIN) == KEY_ON){
 //		//		mode = (mode + 1) % 3;
 //		//}
-//		mode = (mode + 1) % 3;
+//		
 //		//LED1(ON);
 //		__HAL_GPIO_EXTI_CLEAR_IT(KEY2_INT_GPIO_PIN); 
+//		mode = (mode + 1) % 3;
 //		//for(int i = 0; i < 10000; i++);
 //	}  
 //}
@@ -224,7 +225,7 @@ void SysTick_Handler(void)
 void EXTI0_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI0_IRQn 0 */
-
+HAL_Delay(11);
   /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
   /* USER CODE BEGIN EXTI0_IRQn 1 */
@@ -238,7 +239,7 @@ void EXTI0_IRQHandler(void)
 void EXTI15_10_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
-
+//HAL_Delay(11);
   /* USER CODE END EXTI15_10_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */
@@ -246,11 +247,22 @@ void EXTI15_10_IRQHandler(void)
   /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
-//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-//	if(GPIO_Pin == GPIO_PIN_13){
-//		mode = (mode + 1) % 3;
-//	}
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	
+	if(GPIO_Pin == GPIO_PIN_13){
+		//HAL_Delay(10);
+		
+		mode = 2;
+		
+	} else if(GPIO_Pin == GPIO_PIN_0){
+		HAL_Delay(10);
+		mode = (mode+1) % 2;
+//		if (mode == 0)
+//			mode = 1;
+//		else
+//			mode = 0;
+	}
 
-//}
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

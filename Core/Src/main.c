@@ -25,7 +25,8 @@
 #include "gpio.h"
 //#include "fsmc.h"
 #include "bsp_exti.h"
-#include "bsp_led.h"
+#include "bsp_key.h"
+//#include "bsp_led.h"
 #include "bsp_ili9341_lcd.h"
 //#include "bsp_spi_flash.h"
 #include "bsp_basic_tim.h"
@@ -51,8 +52,9 @@ int main(void)
   //MX_FSMC_Init();
 	//LED_GPIO_Config();	
 	EXTI_Key_Config();	
+	//Key_GPIO_Config();
 	ILI9341_Init();
-	
+
 	// xyf: set the display mode
   ILI9341_GramScan ( 4 );
 	LCD_SetFont(&Font24x32);
@@ -60,24 +62,14 @@ int main(void)
 	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);	
 	
 	LCD_SetColors(BLACK,WHITE);
-	ILI9341_SetPointPixel(1,1);
-	ILI9341_SetPointPixel(1,2);
-	ILI9341_SetPointPixel(1,3);
-	ILI9341_SetPointPixel(1,4);
-	ILI9341_SetPointPixel(1,5);
-	//EXTI_Key_Config();
-	//HAL_TIM_PeriodElapsedCallback(&htimx);
-//HAL_TIM_Base_Start_IT(&htimx);
   while (1)
   {
-		if(time % 100000 == 0){
+		if(time % 10000 == 0){
 			//ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);	
 			Chinese_Show();
 		
 		}
 		time++;
-		//HAL_TIM_Base_Start_IT(&htimx);
-		//HAL_TIM_PeriodElapsedCallback(&htimx);
 
   }
 }
